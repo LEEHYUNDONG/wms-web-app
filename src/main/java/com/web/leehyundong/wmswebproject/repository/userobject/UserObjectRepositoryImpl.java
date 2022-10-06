@@ -10,6 +10,7 @@ import org.apache.catalina.User;
 import static com.web.leehyundong.wmswebproject.domain.userobject.QUserObject.userObject;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -37,7 +38,7 @@ public class UserObjectRepositoryImpl implements UserObjectRepositoryCustom {
         return jpaQueryFactory
                 .select(userObject)
                 .from(userObject)
-                .where(userObject.lastDdlTime.loe(LocalDate.now()))
+                .where(userObject.lastDdlTime.loe(LocalDateTime.now()))
                 .orderBy(userObject.lastDdlTime.desc())
                 .fetch();
 

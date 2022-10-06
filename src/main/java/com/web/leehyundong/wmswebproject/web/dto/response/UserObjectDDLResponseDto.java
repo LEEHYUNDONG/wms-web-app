@@ -4,6 +4,7 @@ import com.web.leehyundong.wmswebproject.domain.userobject.UserObject;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -12,7 +13,7 @@ public class UserObjectDDLResponseDto {
 
     private String object_name;
 
-    private LocalDate last_ddl_time;
+    private LocalDateTime last_ddl_time;
 
     public UserObjectDDLResponseDto(UserObject userObject){
         this.object_type =  userObject.getObjectType();

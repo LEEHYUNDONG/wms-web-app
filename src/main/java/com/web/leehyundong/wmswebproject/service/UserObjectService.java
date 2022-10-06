@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,7 +38,6 @@ public class UserObjectService {
     }
 
     public UserObjectDateResponseDto findAllObjectCnt(){
-
         List<UserObjectDDLResponseDto> userObject = this.findAllUserUpdatedObject();
 
         //data init
@@ -76,20 +76,22 @@ public class UserObjectService {
             tableLst.put(dateVar, 0);
             packageLst.put(dateVar, 0);
         }
-
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         for (UserObjectDDLResponseDto userObjectDDLResponseDto : userObject) {
             String type = userObjectDDLResponseDto.getObject_type();
-            String dateObj = userObjectDDLResponseDto.getLast_ddl_time().toString();
+            String dateObj = userObjectDDLResponseDto.getLast_ddl_time().toLocalDate().toString();
 
-            if (type.equals("PROCEDURE")) {
+
+
+            if (type.equals("PROCEDURE") && procedureLst.containsKey(dateObj)) {
                 Integer cnt = procedureLst.get(dateObj);
                 cnt++;
                 procedureLst.put(dateObj, cnt );
-            } else if (type.equals("TABLE")) {
+            } else if (type.equals("TABLE") && tableLst.containsKey(dateObj)) {
                 Integer cnt = tableLst.get(dateObj);
                 cnt++;
                 tableLst.put(dateObj, cnt);
-            } else if (type.equals("PACKAGE")) {
+            } else if (type.equals("PACKAGE") && packageLst.containsKey(dateObj)) {
                 Integer cnt = packageLst.get(dateObj);
                 cnt++;
                 packageLst.put(dateObj, cnt);
@@ -103,18 +105,14 @@ public class UserObjectService {
 
         }
 
-        UserObjectDateResponseDto userObjectDateResponseDto = new UserObjectDateResponseDto(dateList, pCnt, tCnt, pacCnt);
+        return new UserObjectDateResponseDto(dateList, pCnt, tCnt, pacCnt);
 
-
-
-        return userObjectDateResponseDto;
     }
 
     public UserObjectDashboardResponseDto getObjectCnt(){
         // dashboard procedure, table, package count
 
         List<UserObjectResponseDto> lst = this.findAllUserObject();
-
 
         Integer procedureCnt = 0;
         Integer tableCnt = 0;
@@ -136,6 +134,7 @@ public class UserObjectService {
                 indexCnt++;
             }
         }
+
         return new UserObjectDashboardResponseDto(procedureCnt, tableCnt, packageCnt, typeCnt, indexCnt);
     }
 
