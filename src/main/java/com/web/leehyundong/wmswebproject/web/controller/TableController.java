@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
 @Controller
-public class TablesController {
+public class TableController {
     private final UserArgumentService userArgumentService;
 
     private final UserObjectService userObjectService;

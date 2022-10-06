@@ -38,6 +38,7 @@ public class UserObjectRepositoryImpl implements UserObjectRepositoryCustom {
                 .select(userObject)
                 .from(userObject)
                 .where(userObject.lastDdlTime.loe(LocalDate.now()))
+                .orderBy(userObject.lastDdlTime.desc())
                 .fetch();
 
 

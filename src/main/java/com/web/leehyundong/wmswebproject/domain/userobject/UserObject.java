@@ -98,6 +98,7 @@ public class UserObject {
     private Long modifiedVsnid;
 
 
+
     public UserObject(String objectType, String objectName){
         this.objectType = objectType;
         this.objectName = objectName;
