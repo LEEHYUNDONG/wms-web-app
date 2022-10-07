@@ -5,6 +5,7 @@ import lombok.Getter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Getter
@@ -13,12 +14,12 @@ public class UserObjectDDLResponseDto {
 
     private String object_name;
 
-    private LocalDateTime last_ddl_time;
+    private String last_ddl_time;
 
     public UserObjectDDLResponseDto(UserObject userObject){
         this.object_type =  userObject.getObjectType();
         this.object_name = userObject.getObjectName();
-        this.last_ddl_time = userObject.getLastDdlTime();
+        this.last_ddl_time = userObject.getLastDdlTime().toString().replace("T", " ");
     }
 
 }

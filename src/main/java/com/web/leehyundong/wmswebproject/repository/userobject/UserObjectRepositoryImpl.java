@@ -35,21 +35,24 @@ public class UserObjectRepositoryImpl implements UserObjectRepositoryCustom {
 
     @Override
     public List<UserObject> findAllUserUpdatedObject() {
+        // 오늘과 하루전
+        LocalDateTime now = LocalDateTime.now();
+        return jpaQueryFactory
+                .select(userObject)
+                .from(userObject)
+                .where(userObject.lastDdlTime.between(now.minusDays(1), now))
+                .orderBy(userObject.lastDdlTime.desc())
+                .fetch();
+
+    }
+
+    @Override
+    public List<UserObject> findAllUserMonthlyUpdatedObject(){
         return jpaQueryFactory
                 .select(userObject)
                 .from(userObject)
                 .where(userObject.lastDdlTime.loe(LocalDateTime.now()))
                 .orderBy(userObject.lastDdlTime.desc())
                 .fetch();
-
-
     }
-
-//    @Override
-//    public List<UserObject> getCountDashVariables(){
-//        return jpaQueryFactory
-//                .select(userObject)
-//                .from(userObject)
-//                .fetch();
-//    }
 }

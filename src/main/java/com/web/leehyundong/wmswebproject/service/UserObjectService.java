@@ -37,8 +37,14 @@ public class UserObjectService {
                 .collect(Collectors.toList());
     }
 
+    public List<UserObjectDDLResponseDto> findAllUserMonthlyUpdatedObject(){
+        return userObjectRepository.findAllUserMonthlyUpdatedObject().stream()
+                .map(UserObjectDDLResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
     public UserObjectDateResponseDto findAllObjectCnt(){
-        List<UserObjectDDLResponseDto> userObject = this.findAllUserUpdatedObject();
+        List<UserObjectDDLResponseDto> userObject = this.findAllUserMonthlyUpdatedObject();
 
         //data init
         List<String> dateList = new ArrayList<>();
@@ -57,19 +63,11 @@ public class UserObjectService {
         Calendar cal = Calendar.getInstance();
         int endDate = cal.getActualMaximum(Calendar.DATE);
         int nowYear = cal.get(Calendar.YEAR);
-        int nowMonth = cal.get(Calendar.MONTH);
+        int nowMonth = cal.get(Calendar.MONTH)+1;
+        LocalDate now = LocalDate.now();
 
-        for (int i = 1; i <= endDate; i++) {
-            String dateVar;
-            if(nowMonth < 10 && i < 10){
-                dateVar = Integer.toString(nowYear) + "-0" + Integer.toString(nowMonth) + "-0" + Integer.toString(i);
-            }else if(nowMonth < 10){
-                dateVar = Integer.toString(nowYear) + "-0" + Integer.toString(nowMonth) + "-" + Integer.toString(i);
-            }else if(i < 10){
-                dateVar = Integer.toString(nowYear) + "-" + Integer.toString(nowMonth) + "-0" + Integer.toString(i);
-            }else{
-                dateVar = Integer.toString(nowYear) + "-" + Integer.toString(nowMonth) + "-" + Integer.toString(i);
-            }
+        for (int i = 0; i <= 7; i++) {
+            String dateVar = now.minusDays(i).toString();
 
             dateList.add(dateVar);
             procedureLst.put(dateVar, 0);
@@ -79,7 +77,8 @@ public class UserObjectService {
 //        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         for (UserObjectDDLResponseDto userObjectDDLResponseDto : userObject) {
             String type = userObjectDDLResponseDto.getObject_type();
-            String dateObj = userObjectDDLResponseDto.getLast_ddl_time().toLocalDate().toString();
+            String[] dateLst = userObjectDDLResponseDto.getLast_ddl_time().split(" ");
+            String dateObj = dateLst[0];
 
 
 
@@ -112,7 +111,7 @@ public class UserObjectService {
     public UserObjectDashboardResponseDto getObjectCnt(){
         // dashboard procedure, table, package count
 
-        List<UserObjectResponseDto> lst = this.findAllUserObject();
+        List<UserObjectDDLResponseDto> lst = this.findAllUserUpdatedObject();
 
         Integer procedureCnt = 0;
         Integer tableCnt = 0;
@@ -121,16 +120,16 @@ public class UserObjectService {
         Integer indexCnt = 0;
 
         for (int i = 0; i < lst.size(); i++) {
-            UserObjectResponseDto userObjectResponseDto = lst.get(i);
-            if (userObjectResponseDto.getObject_type().equals("PROCEDURE"))
+            UserObjectDDLResponseDto userObjectDdlResponseDto = lst.get(i);
+            if (userObjectDdlResponseDto.getObject_type().equals("PROCEDURE"))
                 procedureCnt++;
-            else if (userObjectResponseDto.getObject_type().equals("TABLE")) {
+            else if (userObjectDdlResponseDto.getObject_type().equals("TABLE")) {
                 tableCnt++;
-            } else if (userObjectResponseDto.getObject_type().equals("PACKAGE")) {
+            } else if (userObjectDdlResponseDto.getObject_type().equals("PACKAGE")) {
                 packageCnt++;
-            } else if (userObjectResponseDto.getObject_type().equals("TYPE")) {
+            } else if (userObjectDdlResponseDto.getObject_type().equals("TYPE")) {
                 typeCnt++;
-            } else if (userObjectResponseDto.getObject_type().equals("INDEX")) {
+            } else if (userObjectDdlResponseDto.getObject_type().equals("INDEX")) {
                 indexCnt++;
             }
         }
