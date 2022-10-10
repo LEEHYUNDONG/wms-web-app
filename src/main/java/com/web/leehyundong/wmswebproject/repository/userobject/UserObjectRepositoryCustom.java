@@ -13,5 +13,5 @@ public interface UserObjectRepositoryCustom {
     List<UserObject> findAllUserUpdatedObject();
 
     List<UserObject> findAllUserMonthlyUpdatedObject();
-//    List<UserObjectDashboardResponseDto> getCountDashVariables();
+
 }

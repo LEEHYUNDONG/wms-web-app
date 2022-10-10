@@ -59,44 +59,44 @@ public class UserObject {
     @Column(name = "NAMESPACE")
     private Long namespace;
 
-    @Column(name = "EDITION_NAME", length = 128)
-    private String editionName;
+//    @Column(name = "EDITION_NAME", length = 128)
+//    private String editionName;
 
-    @Column(name = "SHARING", length = 18)
-    private String sharing;
+//    @Column(name = "SHARING", length = 18)
+//    private String sharing;
 
-    @Column(name = "EDITIONABLE", length = 1)
-    private String editionable;
+//    @Column(name = "EDITIONABLE", length = 1)
+//    private String editionable;
 
-    @Column(name = "ORACLE_MAINTAINED", length = 1)
-    private String oracleMaintained;
+//    @Column(name = "ORACLE_MAINTAINED", length = 1)
+//    private String oracleMaintained;
 
-    @Column(name = "APPLICATION", length = 1)
-    private String application;
+//    @Column(name = "APPLICATION", length = 1)
+//    private String application;
 
-    @Column(name = "DEFAULT_COLLATION", length = 100)
-    private String defaultCollation;
+//    @Column(name = "DEFAULT_COLLATION", length = 100)
+//    private String defaultCollation;
 
-    @Column(name = "DUPLICATED", length = 1)
-    private String duplicated;
+//    @Column(name = "DUPLICATED", length = 1)
+//    private String duplicated;
 
-    @Column(name = "SHARDED", length = 1)
-    private String sharded;
+//    @Column(name = "SHARDED", length = 1)
+//    private String sharded;
 
 //    @Column(name = "IMPORTED_OBJECT", length = 1)
 //    private String importedObject;
 
-    @Column(name = "CREATED_APPID")
-    private Long createdAppid;
+//    @Column(name = "CREATED_APPID")
+//    private Long createdAppid;
 
-    @Column(name = "CREATED_VSNID")
-    private Long createdVsnid;
+//    @Column(name = "CREATED_VSNID")
+//    private Long createdVsnid;
 
-    @Column(name = "MODIFIED_APPID")
-    private Long modifiedAppid;
+//    @Column(name = "MODIFIED_APPID")
+//    private Long modifiedAppid;
 
-    @Column(name = "MODIFIED_VSNID")
-    private Long modifiedVsnid;
+//    @Column(name = "MODIFIED_VSNID")
+//    private Long modifiedVsnid;
 
 
 
