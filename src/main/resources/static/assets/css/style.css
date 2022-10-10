@@ -237,7 +237,8 @@ h6 {
   margin-bottom: 30px;
   border: none;
   border-radius: 5px;
-  box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+  /*box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);*/
+  box-shadow: 0px 0 30px #fafafa;
 }
 
 .card-header,
@@ -267,7 +268,8 @@ h6 {
 }
 
 .card-img-overlay {
-  background-color: rgba(255, 255, 255, 0.6);
+  /*background-color: rgba(255, 255, 255, 0.6);*/
+  background-color: #fafafa;
 }
 
 /* Alerts */

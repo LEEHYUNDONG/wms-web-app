@@ -235,6 +235,7 @@
                                     <thead>
                                     <tr>
                                         <!--                                        <th scope="col">#</th>-->
+                                        <th scope="col">Owner</th>
                                         <th scope="col">Object Type</th>
                                         <th scope="col">Object Name</th>
                                         <th scope="col">Updated Time</th>
@@ -244,9 +245,11 @@
                                     <tbody>
 
                                     <tr th:each="list : ${user_object_updated}">
+                                        <td><span class="badge bg-success">WMSADM</span></td>
                                         <td><span th:text="${list.object_type}"></span></td>
                                         <td><span th:text="${list.object_name}"></span></td>
                                         <td><span th:text="${list.last_ddl_time}"></span></td>
+
                                     </tr>
 
                                     </tbody>
@@ -445,6 +448,10 @@
 
                         <script>
                             document.addEventListener("DOMContentLoaded", () => {
+                                var cntArr = [
+                                    [[${procedureCnt}]], [[${tableCnt}]], [[${packageCnt}]], [[${indexCnt}]], [[${typeCnt}]],
+                                ];
+                                var maxVal = Math.max(...cntArr) + 5;
                                 var objectChart = echarts.init(document.querySelector("#objectChart")).setOption({
                                     legend: {
                                         data: 'Total'
@@ -455,23 +462,23 @@
                                         indicator: [
                                             {
                                                 name: 'Procedure',
-                                                max: 10
+                                                max: maxVal
                                             },
                                             {
                                                 name: 'Table',
-                                                max: 10
+                                                max: maxVal
                                             },
                                             {
                                                 name: 'Package',
-                                                max: 10
+                                                max: maxVal
                                             },
                                             {
                                                 name: 'Index',
-                                                max: 10
+                                                max: maxVal
                                             },
                                             {
                                                 name: 'Type',
-                                                max: 10
+                                                max: maxVal
                                             }
                                         ]
                                     },
@@ -479,9 +486,7 @@
                                         name: 'Object Total',
                                         type: 'radar',
                                         data: [{
-                                            value: [
-                                                [[${procedureCnt}]], [[${tableCnt}]], [[${packageCnt}]], [[${indexCnt}]], [[${typeCnt}]],
-                                            ],
+                                            value: cntArr,
                                             name: 'Total Count'
                                         }]
                                     }]

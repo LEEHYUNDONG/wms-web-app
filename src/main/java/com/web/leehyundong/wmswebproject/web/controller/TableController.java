@@ -76,7 +76,10 @@ public class TableController {
 
     @GetMapping("/source")
     public String userSource(Model model){
-        model.addAttribute("user_source", userSourceService.findAllUserSource());
+//        model.addAttribute("user_source", userSourceService.findAllUserSource());
+        model.addAttribute("codeText", userSourceService.getSpecificSource().getText());
+        model.addAttribute("editedCodeText", userSourceService.getSpecificSource().getText().replaceAll("[A-B]+", ""));
+        model.addAttribute("name", userSourceService.getSpecificSource().getName());
 
         return "user-source";
 

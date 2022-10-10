@@ -1,3 +1,42 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+
+<!--<th:block th:replace="fragments/head :: headFragment"></th:block>-->
+<!--<th:block th:replace="fragments/header :: headerFragment"></th:block>-->
+
+
+<!--<main id="main" class="main">-->
+<!--    <div>-->
+<!--        <h1>User Source</h1>-->
+<!--    </div>-->
+<!--    <div class="container">-->
+
+<!--        <table class="table table-hover table-dark">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th scope="col">Name</th>-->
+<!--                &lt;!&ndash;        <th scope="col">Line</th>&ndash;&gt;-->
+<!--                <th scope="col">Text</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr th:each="list5 : ${user_source}">-->
+<!--                <td><span th:text="${list5.name}" th:if="${list5Stat.count} == 1"></span></td>-->
+<!--                &lt;!&ndash;                        <td><span th:text="${list5.line}"></span></td>&ndash;&gt;-->
+<!--                <td><span th:text="${list5.text}"></span></td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+
+<!--            &lt;!&ndash;    </table>&ndash;&gt;-->
+<!--    </div>-->
+
+<!--</main>&lt;!&ndash; End #main &ndash;&gt;-->
+
+<!--&lt;!&ndash; ======= Footer ======= &ndash;&gt;-->
+<!--<th:block th:replace="fragments/footer :: footerFragment"></th:block>-->
+
+<!--</html>-->
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
@@ -6,27 +45,71 @@
 
 
 <main id="main" class="main">
-  <div>
-    <h1>User Source</h1>
-  </div>
-  <div class="container">
-    <table class="table table-hover table-dark">
-      <thead>
-      <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Line</th>
-        <th scope="col">Text</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr th:each="list5 : ${user_source}">
-        <td><span th:text="${list5.name}"></span></td>
-        <td><span th:text="${list5.line}"></span></td>
-        <td><span th:text="${list5.text}"></span></td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+
+    <div><h1>User Source</h1></div>
+    <h2><span th:text="${name}"></span></h2>
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="container">
+                            <pre>
+                                <code class="sql">
+                                    <span th:text="${codeText}"></span>
+                                </code>
+                                </pre>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="col-lg-6">
+                <div class="card">
+                    <!--                    <div id="data"></div>-->
+
+                    <div class="card-body">
+                        <div class="container">
+                            <pre><div class="sql" id="data-sql"></div></pre>
+                            <!--                            <span class="sql" id="data-sql"></span>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="static/assets/js/diff_match_patch.js" th:inline="javascript"></script>
+    <script th:inline="javascript">
+
+        var diff_prettyHtml = function (a) {
+            for (var b = [], c = /&/g, d = /</g, e = />/g, f = /\n/g, g = 0; g < a.length; g++) {
+                // var h = a[g][0], l = a[g][1].replace(c, "&amp;").replace(d, "&lt;").replace(e, "&gt;").replace(f, "&para;<br>");
+                var h = a[g][0], l = a[g][1].replace(c, "&amp;").replace(d, "&lt;").replace(e, "&gt;");
+                switch (h) {
+                    case 1:
+                        b[g] = '<span style="background:#e6ffe6;">' + l + "</span>";
+                        break;
+                    case -1:
+                        b[g] = '<span style="background:#ff771d;">' + l + "</span>";
+                        break;
+                    case 0:
+                        b[g] = "<span>" + l + "</span>"
+                }
+            }
+            return b.join("")
+        };
+        var dmp = new diff_match_patch();
+        var diff = dmp.diff_main([[${codeText}]], [[${editedCodeText}]]);
+        // dmp.diff_nocleanupSemantic(diff);
+        // var ds = dmp.diff_prettyHtml(diff);
+        var ds = diff_prettyHtml(diff);
+        document.getElementById("data-sql").innerHTML = ds;
+        // alert(diff);
+
+
+    </script>
 
 </main><!-- End #main -->
 

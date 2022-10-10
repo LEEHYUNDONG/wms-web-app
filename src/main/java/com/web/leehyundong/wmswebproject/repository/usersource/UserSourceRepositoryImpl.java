@@ -19,7 +19,7 @@ public class UserSourceRepositoryImpl implements UserSourceRepositoryCustom {
     public List<UserSource> findAllUserSource() {
         return jpaQueryFactory
                 .selectFrom(userSource)
-//                .where(userSource.text.like("%SALES_MGR.CALC_TOTALS%"))
+                .where(userSource.name.like("%DEL_PG_OT_M_CJF_PICK_CROSS%"))
                 .orderBy(userSource.name.asc(), userSource.line.asc())
                 .fetch();
     }
