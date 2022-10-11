@@ -55,9 +55,12 @@ public class UserObjectService {
 
         HashMap<String, Integer> packageLst = new HashMap();
 
+        HashMap<String, Integer> packageBodyLst = new HashMap();
+
         List<Integer> pCnt = new ArrayList<>();
         List<Integer> tCnt = new ArrayList<>();
         List<Integer> pacCnt = new ArrayList<>();
+        List<Integer> pacBodCnt = new ArrayList<>();
 
 
         Calendar cal = Calendar.getInstance();
@@ -73,6 +76,7 @@ public class UserObjectService {
             procedureLst.put(dateVar, 0);
             tableLst.put(dateVar, 0);
             packageLst.put(dateVar, 0);
+            packageBodyLst.put(dateVar, 0);
         }
 //        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         for (UserObjectDDLResponseDto userObjectDDLResponseDto : userObject) {
@@ -94,6 +98,10 @@ public class UserObjectService {
                 Integer cnt = packageLst.get(dateObj);
                 cnt++;
                 packageLst.put(dateObj, cnt);
+            }else if (type.equals("PACKAGE BODY") && packageLst.containsKey(dateObj)) {
+                Integer cnt = packageBodyLst.get(dateObj);
+                cnt++;
+                packageBodyLst.put(dateObj, cnt);
             }
         }
 
@@ -101,10 +109,11 @@ public class UserObjectService {
             pCnt.add(procedureLst.get(s));
             tCnt.add(tableLst.get(s));
             pacCnt.add(packageLst.get(s));
+            pacBodCnt.add(packageBodyLst.get((s)));
 
         }
 
-        return new UserObjectDateResponseDto(dateList, pCnt, tCnt, pacCnt);
+        return new UserObjectDateResponseDto(dateList, pCnt, tCnt, pacCnt, pacBodCnt);
 
     }
 
@@ -116,8 +125,9 @@ public class UserObjectService {
         Integer procedureCnt = 0;
         Integer tableCnt = 0;
         Integer packageCnt = 0;
-        Integer typeCnt = 0;
+        Integer viewCnt = 0;
         Integer indexCnt = 0;
+        Integer packageBodyCnt = 0;
 
         for (int i = 0; i < lst.size(); i++) {
             UserObjectDDLResponseDto userObjectDdlResponseDto = lst.get(i);
@@ -127,14 +137,17 @@ public class UserObjectService {
                 tableCnt++;
             } else if (userObjectDdlResponseDto.getObject_type().equals("PACKAGE")) {
                 packageCnt++;
-            } else if (userObjectDdlResponseDto.getObject_type().equals("TYPE")) {
-                typeCnt++;
+            } else if (userObjectDdlResponseDto.getObject_type().equals("VIEW")) {
+                viewCnt++;
             } else if (userObjectDdlResponseDto.getObject_type().equals("INDEX")) {
                 indexCnt++;
+            } else if (userObjectDdlResponseDto.getObject_type().equals("PACKAGE BODY")) {
+                packageBodyCnt++;
+
             }
         }
 
-        return new UserObjectDashboardResponseDto(procedureCnt, tableCnt, packageCnt, typeCnt, indexCnt);
+        return new UserObjectDashboardResponseDto(procedureCnt, tableCnt, packageCnt, viewCnt, indexCnt, packageBodyCnt);
     }
 
 }

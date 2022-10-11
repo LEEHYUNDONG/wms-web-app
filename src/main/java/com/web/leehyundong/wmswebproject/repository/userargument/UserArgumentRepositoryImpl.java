@@ -20,8 +20,13 @@ public class UserArgumentRepositoryImpl implements UserArgumentRepositoryCustom 
     public List<UserArgument> findAllUserArgument() {
 
         return jpaQueryFactory
-                .selectFrom(userArgument)
+                .selectDistinct(userArgument)
+                .from(userArgument)
+                .offset(100)
+//                .where(userArgument.object_name.eq("SP_GETDATALIST_CJF_PICKDC_LIST"))
                 .fetch();
+
+
     }
 
     @Override

@@ -24,6 +24,7 @@ public class TableController {
 
     @GetMapping("/tables")
     public String tableChart(Model model){
+        model.addAttribute("codeText", userSourceService.getSpecificSource().getText());
         model.addAttribute("user_arguments", userArgumentService.findAllUserArgument());
         model.addAttribute("user_dependency", userDependencyService.findAllUserDependency());
         model.addAttribute("user_object", userObjectService.findAllUserObject());

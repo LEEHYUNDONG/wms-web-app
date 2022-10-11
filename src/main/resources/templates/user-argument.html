@@ -46,7 +46,7 @@
 
             <div class="card-body">
 
-                <table class="table table-borderless datatable table-hover table-dark">
+                <table class="table table-borderless datatable table-hover">
                     <thead>
                     <tr>
 
@@ -58,7 +58,7 @@
                     </thead>
                     <tbody>
 
-                    <tr th:each="list : ${user_arguments}" th:if="${listStat.count} <= 300">
+                    <tr th:each="list : ${user_arguments}" th:if="${listStat.count} <= 50">
                         <td><span th:text="${list.object_name}"></span></td>
                         <td><span th:text="${list.package_name}"></span></td>
                         <td><span th:text="${list.argument_name}"></span></td>
@@ -70,7 +70,7 @@
             </div>
 
         </div>
-    </div><!-- End Recent Sales -->
+    </div>
 
 </main><!-- End #main -->
 

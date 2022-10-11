@@ -11,13 +11,16 @@ public class UserObjectDashboardResponseDto {
 
     private Integer indexCnt = 0;
 
-    private Integer typeCnt = 0;
+    private Integer viewCnt = 0;
 
-    public UserObjectDashboardResponseDto(Integer procedureCnt, Integer tableCnt, Integer packageCnt, Integer indexCnt, Integer typeCnt){
+    private  Integer packageBodyCnt = 0;
+
+    public UserObjectDashboardResponseDto(Integer procedureCnt, Integer tableCnt, Integer packageCnt, Integer indexCnt, Integer viewCnt, Integer packageBodyCnt){
         this.procedureCnt = procedureCnt;
         this.tableCnt = tableCnt;
         this.packageCnt = packageCnt;
         this.indexCnt = indexCnt;
-        this.typeCnt = typeCnt;
+        this.viewCnt = viewCnt;
+        this.packageBodyCnt = packageBodyCnt;
     }
 }

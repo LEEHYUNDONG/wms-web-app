@@ -40,13 +40,15 @@ public class IndexController {
         model.addAttribute("tableCnt", userObjectDashboardResponseDto.getTableCnt());
         model.addAttribute("procedureCnt", userObjectDashboardResponseDto.getProcedureCnt());
         model.addAttribute("indexCnt", userObjectDashboardResponseDto.getIndexCnt());
-        model.addAttribute("typeCnt", userObjectDashboardResponseDto.getTypeCnt());
+        model.addAttribute("viewCnt", userObjectDashboardResponseDto.getViewCnt());
+        model.addAttribute("packageBodyCnt", userObjectDashboardResponseDto.getPackageBodyCnt());
 
 
         model.addAttribute("lstOfDate", userObjectDateResponseDto.getLstOfDate());
         model.addAttribute("procedureCntLst", userObjectDateResponseDto.getPCnt());
         model.addAttribute("tableCntLst", userObjectDateResponseDto.getTCnt());
         model.addAttribute("packageCntLst", userObjectDateResponseDto.getPacCnt());
+        model.addAttribute("packageBodyCntLst", userObjectDateResponseDto.getPacBodCnt());
 
         model.addAttribute("user_object_updated", userObjectService.findAllUserUpdatedObject());
 

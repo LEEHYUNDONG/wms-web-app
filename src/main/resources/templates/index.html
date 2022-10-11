@@ -110,6 +110,92 @@
                             </div>
 
                         </div>
+                    </div><!-- End Revenue Card --><div class="col-xxl-4 col-xl-12">
+
+                    <div class="card info-card customers-card">
+
+                        <div class="filter">
+                            <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                <li class="dropdown-header text-start">
+                                    <h6>Filter</h6>
+                                </li>
+
+                                <li><a class="dropdown-item" href="#">Today</a></li>
+                                <li><a class="dropdown-item" href="#">This Month</a></li>
+                                <li><a class="dropdown-item" href="#">This Year</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title">Package Body <span>| Updated</span></h5>
+
+                            <div class="d-flex align-items-center">
+                                <h1><span th:text="${packageBodyCnt}"></span></h1>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div><!-- End Customers Card -->
+
+                    <!--                    프로시저, 패키지, 테이블 갯수로 하기-->
+                    <!-- Procedure Card -->
+                    <div class="col-xxl-4 col-md-6">
+                        <div class="card info-card sales-card">
+
+                            <div class="filter">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <li class="dropdown-header text-start">
+                                        <h6>Filter</h6>
+                                    </li>
+
+                                    <li><a class="dropdown-item" href="#">Today</a></li>
+                                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="card-body">
+                                <h5 class="card-title">Index <span>| Updated</span></h5>
+
+                                <div class="d-flex align-items-center">
+                                    <h1><span th:text="${indexCnt}"></span></h1>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div><!-- End Procedure Card -->
+
+                    <!-- Table Card -->
+                    <div class="col-xxl-4 col-md-6">
+                        <div class="card info-card revenue-card">
+
+                            <div class="filter">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <li class="dropdown-header text-start">
+                                        <h6>Filter</h6>
+                                    </li>
+
+                                    <li><a class="dropdown-item" href="#">Today</a></li>
+                                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="card-body">
+                                <h5 class="card-title">View <span>| Updated</span></h5>
+
+                                <div class="d-flex align-items-center">
+                                    <h1><span th:text="${viewCnt}"></span></h1>
+
+                                </div>
+                            </div>
+
+                        </div>
                     </div><!-- End Revenue Card -->
 
 
@@ -142,7 +228,8 @@
                                         "lstOfDate": [[${lstOfDate}]],
                                         "procedure": [[${procedureCntLst}]],
                                         "table": [[${tableCntLst}]],
-                                        "package": [[${packageCntLst}]]
+                                        "package": [[${packageCntLst}]],
+                                        "packageBody" :[[${packageBodyCntLst}]]
 
                                     };
 
@@ -160,6 +247,10 @@
                                                 name: 'Package',
                                                 // data: [15, 11, 32, 18, 9, 24, 11]
                                                 data: dataLst.package
+                                            },{
+                                                name: 'Package Body',
+                                                // data: [15, 11, 32, 18, 9, 24, 11]
+                                                data: dataLst.packageBody
                                             }],
                                             chart: {
                                                 height: 350,
@@ -171,7 +262,7 @@
                                             markers: {
                                                 size: 4
                                             },
-                                            colors: ['#4154f1', '#2eca6a', '#ff771d'],
+                                            colors: ['#4154f1', '#2eca6a', '#ff771d', '#ffd400'],
                                             fill: {
                                                 type: "gradient",
                                                 gradient: {
@@ -449,7 +540,7 @@
                         <script>
                             document.addEventListener("DOMContentLoaded", () => {
                                 var cntArr = [
-                                    [[${procedureCnt}]], [[${tableCnt}]], [[${packageCnt}]], [[${indexCnt}]], [[${typeCnt}]],
+                                    [[${procedureCnt}]], [[${tableCnt}]], [[${packageCnt}]], [[${indexCnt}]], [[${viewCnt}]], [[${packageBodyCnt}]],
                                 ];
                                 var maxVal = Math.max(...cntArr) + 5;
                                 var objectChart = echarts.init(document.querySelector("#objectChart")).setOption({
@@ -477,7 +568,11 @@
                                                 max: maxVal
                                             },
                                             {
-                                                name: 'Type',
+                                                name: 'View',
+                                                max: maxVal
+                                            },
+                                            {
+                                                name: 'Package Body',
                                                 max: maxVal
                                             }
                                         ]
@@ -549,7 +644,6 @@
                                         data: [{
                                             // value: 1048,
                                             value: [[${procedureCnt}]],
-
                                             name: 'Procedure'
                                         },
                                             {
@@ -566,9 +660,14 @@
                                                 name: 'Index'
                                             },
                                             {
-                                                value: [[${typeCnt}]],
-                                                name: 'Type'
-                                            }
+                                                value: [[${viewCnt}]],
+                                                name: 'View'
+                                            },
+                                            {
+                                                value: [[${packageBodyCnt}]],
+
+                                                name: 'Package Body'
+                                            },
                                         ]
                                     }]
                                 });

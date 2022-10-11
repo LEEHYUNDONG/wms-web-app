@@ -23,37 +23,37 @@
     <section class="section">
         <div class="row">
             <div class="col-lg-6">
-
-                <div class="card">
+                <div class="card recent-sales overflow-auto">
                     <div class="card-body">
-                        <h3 class="card-title">User Arguments</h3>
 
-                        <!-- Default Table -->
-                        <table class="table">
+                        <table class="table table-borderless datatable table-hover">
                             <thead>
                             <tr>
+
                                 <th scope="col">Object Name</th>
                                 <th scope="col">Package Name</th>
                                 <th scope="col">Argument Name</th>
+
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="list : ${user_arguments}">
+
+                            <tr th:each="list : ${user_arguments}" th:if="${listStat.count} <= 50">
                                 <td><span th:text="${list.object_name}"></span></td>
                                 <td><span th:text="${list.package_name}"></span></td>
                                 <td><span th:text="${list.argument_name}"></span></td>
                             </tr>
+
                             </tbody>
                         </table>
-                        <!-- End Default Table Example -->
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title">User Dependency</h3>
 
-                        <!-- Primary Color Bordered Table -->
-                        <table class="table table-bordered border-primary">
+                    </div>
+
+                </div>
+                <div class="card recent-sales overflow-auto">
+                    <div class="card-body">
+
+                        <table class="table table-bordered datatable table-hover">
                             <thead>
                             <tr>
                                 <th scope="col">Name</th>
@@ -69,11 +69,14 @@
                                 <td><span th:text="${list4.referenced_name}"></span></td>
                                 <td><span th:text="${list4.referenced_owner}"></span></td>
                             </tr>
+
                             </tbody>
                         </table>
 
                     </div>
+
                 </div>
+
 
                 <div class="card">
                     <div class="card-body">
@@ -98,11 +101,9 @@
 
                     </div>
                 </div>
-
             </div>
 
             <div class="col-lg-6">
-
                 <div class="card">
                     <div class="card-body">
                         <h3 class="card-title">User Updated Object</h3>
@@ -128,37 +129,22 @@
                     </div>
                 </div>
 
+
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="card-title">User Source</h3>
-
-                        <!-- Table with hoverable rows -->
-                        <table class="table table-hover">
-
-                            <!-- Table with hoverable rows -->
-                            <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Line</th>
-                                <th scope="col">Text</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="list5 : ${user_source}">
-                                <td><span th:text="${list5.name}"></span></td>
-                                <td><span th:text="${list5.line}"></span></td>
-                                <td><span th:text="${list5.text}"></span></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <!-- End Table with hoverable rows -->
-
+                        <div class="container">
+                            <pre>
+                                <code class="sql">
+                                    <span th:text="${codeText}"></span>
+                                </code>
+                                </pre>
+                        </div>
                     </div>
                 </div>
-
-
             </div>
+
         </div>
+
     </section>
 
 </main><!-- End #main -->
